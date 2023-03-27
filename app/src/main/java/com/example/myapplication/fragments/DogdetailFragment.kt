@@ -9,31 +9,36 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentDogdetailBinding
 
 
-class FragmentdetailItemCat : Fragment() {
-    private var detail:TextView? =null
-    private var imageView:ImageView? =null
+class DogdetailFragment : Fragment() {
+
+    private var  _binding: FragmentDogdetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_fragmentdetail_item_cat, container, false)
+    ): View {
+        _binding = FragmentDogdetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detail = view.findViewById(R.id.detail2)
-        imageView = view.findViewById(R.id.image_cat1)
+        val detail = binding.detail2
+        val imageView = binding.imageCat1
         arguments?.let { bundle ->
             val description = bundle.getString("detail")
             val image = bundle.getString("image")
-            detail?.text = description
-            Glide.with(this).load(image).into(imageView!!)
+            detail.text = description
+            Glide.with(this).load(image).into(imageView)
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

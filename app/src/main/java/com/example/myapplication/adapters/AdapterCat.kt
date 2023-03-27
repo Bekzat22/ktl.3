@@ -2,15 +2,12 @@ package com.example.myapplication.adapters
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.R
 import com.example.myapplication.data.Catmodel
+import com.example.myapplication.databinding.ItemcatBinding
 import com.example.myapplication.fragments.FragmentdetailItemCat
 import com.example.myapplication.interfaces.CatClick
 
@@ -19,28 +16,20 @@ class AdapterCat(
     private val listener: CatClick
 ) : RecyclerView.Adapter<AdapterCat.CatViewHolder>() {
 
-    class CatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private var image: ImageView? = null
-        private var name: TextView? = null
-        private var detail: TextView? = null
-
-        init {
-            image = view.findViewById(R.id.image_cat)
-            name = view.findViewById(R.id.name)
-            detail = view.findViewById(R.id.detail2)
-        }
+    inner class CatViewHolder(private val binding: ItemcatBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(catmodel: Catmodel) {
-            image?.let { Glide.with(it).load(catmodel.image).into(image!!) }
-            name?.text = catmodel.name
-            detail?.text = catmodel.detail
+            binding.apply {
+                Glide.with(imageCat).load(catmodel.image).into(imageCat)
+                name.text = catmodel.name
+                name.text = catmodel.detail
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
-        return CatViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.itemcat, parent, false)
-        ).apply {
+        val binding = ItemcatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CatViewHolder(binding).apply {
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {

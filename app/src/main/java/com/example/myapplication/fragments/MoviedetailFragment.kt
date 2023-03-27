@@ -10,17 +10,17 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 
+class MoviedetailFragment : Fragment() {
 
-class FragmentdetailItemCat : Fragment() {
-    private var detail:TextView? =null
-    private var imageView:ImageView? =null
+    private var detail: TextView? =null
+    private var imageView: ImageView? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_fragmentdetail_item_cat, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_moviedetail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
